@@ -1,0 +1,71 @@
+# ============================================================
+# config/journey_states.yml
+# Defines all 7 journey states and their transition rules
+# ============================================================
+
+states:
+  NEW_SIGNUP:
+    description: "User just signed up, has not used any core feature yet"
+    entry_event: "signup_completed"
+    exits:
+      - to: ACTIVATING
+        condition: "first_core_feature_used event exists"
+      - to: CHURNED
+        condition: "no activity for 30 days"
+    max_days_in_state: 30
+
+  ACTIVATING:
+    description: "User has used a core feature but not reached activation milestone"
+    entry_event: "first_core_feature_used"
+    exits:
+      - to: ACTIVATED
+        condition: "activation_milestone event exists"
+      - to: CHURN_RISK
+        condition: "no session for 5 days"
+    max_days_in_state: 30
+
+  ACTIVATED:
+    description: "User completed all activation steps"
+    entry_event: "activation_milestone"
+    exits:
+      - to: RETAINED
+        condition: "3 or more sessions in any 7 day window"
+      - to: CHURN_RISK
+        condition: "no session for 7 days"
+    max_days_in_state: null
+
+  RETAINED:
+    description: "User is actively engaged with the product regularly"
+    entry_condition: "3+ sessions in 7 days"
+    exits:
+      - to: CHURN_RISK
+        condition: "no session for 7 days"
+      - to: EXPANDING
+        condition: "engagement_score greater than 80"
+    max_days_in_state: null
+
+  CHURN_RISK:
+    description: "User was active but has gone quiet — intervention needed"
+    entry_condition: "no session for 7 days after being active"
+    exits:
+      - to: RETAINED
+        condition: "user has a new session"
+      - to: CHURNED
+        condition: "no session for 30 days total"
+    max_days_in_state: 30
+
+  CHURNED:
+    description: "User has been completely inactive for 30+ days"
+    entry_condition: "30 days of zero activity"
+    exits:
+      - to: RETAINED
+        condition: "reactivation event fires (new session)"
+    max_days_in_state: null
+
+  EXPANDING:
+    description: "Power user ready to upgrade or refer friends"
+    entry_condition: "engagement_score greater than 80"
+    exits:
+      - to: RETAINED
+        condition: "engagement_score drops below 60"
+    max_days_in_state: null

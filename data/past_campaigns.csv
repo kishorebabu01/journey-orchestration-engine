@@ -1,0 +1,13 @@
+campaign_id,campaign_name,trigger_type,journey_state,channel,message_style,subject_line,open_rate,ctr,conversion_rate,sample_size,run_date,notes
+C001,Q1 Activation Push,activation_nudge_24h,NEW_SIGNUP,push,urgency,"Your focus session is waiting ⏱️",0.0,0.18,0.12,1240,2024-01-15,Best performing activation push
+C002,Q1 Activation Email,activation_nudge_72h,NEW_SIGNUP,email,curiosity,"Kishore — what does your ideal study day look like?",0.34,0.09,0.07,1240,2024-01-15,Personalised name performs well
+C003,Q2 Winback Series D7,winback_day7,CHURN_RISK,email,social_proof,"847 students completed a focus session this week",0.29,0.11,0.08,890,2024-04-10,Social proof outperforms urgency for winback
+C004,Q2 Winback Push D7,winback_day7,CHURN_RISK,push,urgency,"You had a 5-day streak. Don't lose it 🔥",0.0,0.21,0.14,890,2024-04-10,Streak loss framing very effective
+C005,Q2 Winback Final,winback_final_day21,CHURN_RISK,email,urgency,"Last chance — your study plan expires in 48h",0.31,0.14,0.09,650,2024-04-10,Scarcity works for final attempt
+C006,Activation Milestone Celebration,celebration_message,ACTIVATED,push,achievement,"🎉 You just unlocked Deep Work Mode!",0.0,0.34,0.28,560,2024-03-01,Achievement unlocks have highest CTR of all triggers
+C007,Power Feature Unlock,power_feature_unlock,RETAINED,in_app,curiosity,"Your productivity score qualifies you for AI Coach",0.0,0.19,0.15,430,2024-05-20,Exclusivity framing drives feature adoption
+C008,Weekly Progress Email,weekly_progress_insight,RETAINED,email,achievement,"You ranked in the top 12% of students this week 📈",0.41,0.17,0.11,780,2024-06-03,Ranking/comparison highly motivating
+C009,Upgrade Prompt Personalised,upgrade_prompt,EXPANDING,email,urgency,"Your ROI: 23 hours saved this month. Unlock more.",0.38,0.22,0.16,210,2024-07-15,ROI framing converts best for upgrade
+C010,Referral Invitation,referral_invitation,EXPANDING,push,social_proof,"Your friend Maya is waiting for you in Study Group",0.0,0.28,0.19,210,2024-07-15,Named friend referral outperforms generic
+C011,Reactivation Monthly,reactivation_monthly,CHURNED,email,curiosity,"A lot has changed at Focusly since you left 👀",0.22,0.08,0.04,1100,2024-08-01,Curiosity gap works for churned users
+C012,Progress Encouragement,progress_encouragement,ACTIVATING,in_app,achievement,"Nice work! 1 down, 2 steps to unlock everything",0.0,0.24,0.18,670,2024-02-10,Progress bar framing increases completion

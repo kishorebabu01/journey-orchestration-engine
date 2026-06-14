@@ -1,0 +1,34 @@
+# ============================================================
+# .gitignore — Files that must NEVER go to GitHub
+# ============================================================
+
+# Secret keys — MOST IMPORTANT
+.env
+
+# Python cache files (auto-generated, not needed)
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environment folder
+venv/
+env/
+.venv/
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# LlamaIndex local storage (can be large)
+storage/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Log files
+*.log
+logs/

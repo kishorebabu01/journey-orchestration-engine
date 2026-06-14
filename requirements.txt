@@ -1,0 +1,41 @@
+# ============================================================
+# PROJECT 5 — LLM-Powered Customer Journey Orchestration Engine
+
+# ============================================================
+
+# --- Core Python Utilities ---
+python-dotenv==1.0.0
+requests==2.31.0
+pyyaml==6.0.1
+pandas==2.2.2
+numpy==1.26.4
+
+# --- Supabase ---
+supabase==2.3.0
+psycopg2-binary==2.9.9
+
+# --- PostHog ---
+posthog==3.3.1
+
+# --- LangChain (all same version family — FIXED) ---
+langchain==0.2.16
+langchain-community==0.2.16
+langchain-groq==0.1.9
+langchain-core==0.2.38
+
+# --- LlamaIndex ---
+llama-index==0.10.40
+llama-index-embeddings-huggingface==0.2.2
+llama-index-vector-stores-supabase==0.1.3
+
+# --- Sentence Transformers (FREE local embeddings) ---
+sentence-transformers==2.7.0
+
+# --- Groq (FREE LLM) ---
+groq==0.9.0
+
+# --- Scheduling ---
+schedule==1.2.1
+
+# --- HTTP and Async ---
+aiohttp==3.9.5

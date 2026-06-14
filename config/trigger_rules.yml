@@ -1,0 +1,122 @@
+# ============================================================
+# config/trigger_rules.yml
+# Defines WHEN to fire a trigger and send a message
+# Each trigger maps to one journey state + one condition
+# ============================================================
+
+triggers:
+
+  # ── NEW_SIGNUP triggers ──────────────────────────────────
+  activation_nudge_24h:
+    state: NEW_SIGNUP
+    condition: "no first_core_feature_used event AND hours_since_signup >= 24"
+    max_fires: 1
+    description: "Gentle nudge 24h after signup with no action"
+
+  activation_nudge_72h:
+    state: NEW_SIGNUP
+    condition: "no first_core_feature_used event AND hours_since_signup >= 72"
+    max_fires: 1
+    description: "Second nudge at 72h — more personalised"
+
+  activation_final_7d:
+    state: NEW_SIGNUP
+    condition: "no first_core_feature_used event AND days_since_signup >= 7"
+    max_fires: 1
+    description: "Final activation attempt at 7 days"
+
+  # ── ACTIVATING triggers ──────────────────────────────────
+  progress_encouragement:
+    state: ACTIVATING
+    condition: "activation_steps_completed == 1"
+    max_fires: 1
+    description: "Celebrate first step, encourage next"
+
+  milestone_prompt:
+    state: ACTIVATING
+    condition: "activation_steps_completed == 1 AND days_in_state >= 2"
+    max_fires: 1
+    description: "Prompt toward milestone at 50% completion"
+
+  almost_there_nudge:
+    state: ACTIVATING
+    condition: "activation_steps_completed == 2"
+    max_fires: 1
+    description: "80% done — almost there push"
+
+  # ── ACTIVATED triggers ───────────────────────────────────
+  celebration_message:
+    state: ACTIVATED
+    condition: "just_entered_state AND hours_in_state <= 2"
+    max_fires: 1
+    description: "Celebrate activation milestone immediately"
+
+  feature_discovery:
+    state: ACTIVATED
+    condition: "days_in_state >= 1 AND days_in_state <= 3"
+    max_fires: 1
+    description: "Show advanced features after activation"
+
+  # ── RETAINED triggers ────────────────────────────────────
+  weekly_progress_insight:
+    state: RETAINED
+    condition: "day_of_week == Monday AND days_in_state >= 7"
+    max_fires_per_week: 1
+    description: "Weekly progress report every Monday"
+
+  power_feature_unlock:
+    state: RETAINED
+    condition: "engagement_score >= 60 AND engagement_score < 80"
+    max_fires: 1
+    description: "Unlock advanced features for engaged users"
+
+  # ── CHURN_RISK triggers ──────────────────────────────────
+  winback_day7:
+    state: CHURN_RISK
+    condition: "days_inactive >= 7 AND days_inactive < 10"
+    max_fires: 1
+    description: "First winback attempt at 7 days"
+
+  winback_day14:
+    state: CHURN_RISK
+    condition: "days_inactive >= 14 AND days_inactive < 17"
+    max_fires: 1
+    description: "Second winback at 14 days — stronger message"
+
+  winback_final_day21:
+    state: CHURN_RISK
+    condition: "days_inactive >= 21"
+    max_fires: 1
+    description: "Final winback attempt — last chance tone"
+
+  # ── CHURNED triggers ─────────────────────────────────────
+  reactivation_monthly:
+    state: CHURNED
+    condition: "days_since_last_message >= 30"
+    max_fires_per_month: 1
+    description: "Monthly reactivation — curiosity gap"
+
+  product_update_announcement:
+    state: CHURNED
+    condition: "major_feature_released == true"
+    max_fires: 1
+    description: "Announce major product updates to churned users"
+
+  # ── EXPANDING triggers ───────────────────────────────────
+  upgrade_prompt:
+    state: EXPANDING
+    condition: "engagement_score >= 80 AND no_upgrade_in_account"
+    max_fires: 1
+    description: "Personalised ROI-based upgrade prompt"
+
+  referral_invitation:
+    state: EXPANDING
+    condition: "engagement_score >= 85 AND referrals_sent == 0"
+    max_fires: 1
+    description: "Invite power users to refer friends"
+
+  power_user_recognition:
+    state: EXPANDING
+    condition: "days_in_state >= 7"
+    max_fires: 1
+    description: "Make power users feel special and seen"

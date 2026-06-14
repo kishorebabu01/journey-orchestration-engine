@@ -1,0 +1,13 @@
+message_id,trigger_type,journey_state,channel,message_style,open_rate,ctr,conversion_rate,sent_date,user_segment,engagement_score_at_send
+M001,activation_nudge_24h,NEW_SIGNUP,push,urgency,0,0.19,0.13,2024-09-01,paid_social,5
+M002,activation_nudge_24h,NEW_SIGNUP,email,curiosity,0.33,0.10,0.08,2024-09-01,organic,5
+M003,winback_day7,CHURN_RISK,push,social_proof,0,0.22,0.15,2024-09-03,high_intent,18
+M004,winback_day7,CHURN_RISK,email,urgency,0.27,0.09,0.06,2024-09-03,paid_social,18
+M005,celebration_message,ACTIVATED,push,achievement,0,0.36,0.31,2024-09-05,referral,45
+M006,weekly_progress_insight,RETAINED,email,achievement,0.43,0.18,0.12,2024-09-08,high_intent,72
+M007,upgrade_prompt,EXPANDING,email,urgency,0.39,0.23,0.17,2024-09-10,high_intent,85
+M008,winback_final_day21,CHURN_RISK,email,urgency,0.30,0.13,0.08,2024-09-12,organic,8
+M009,reactivation_monthly,CHURNED,email,curiosity,0.21,0.07,0.03,2024-09-15,paid_social,0
+M010,power_feature_unlock,RETAINED,in_app,curiosity,0,0.21,0.16,2024-09-18,referral,68
+M011,milestone_prompt,ACTIVATING,in_app,achievement,0,0.26,0.20,2024-09-20,high_intent,22
+M012,referral_invitation,EXPANDING,push,social_proof,0,0.29,0.21,2024-09-22,referral,88

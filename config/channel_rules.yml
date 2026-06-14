@@ -1,0 +1,60 @@
+# ============================================================
+# config/channel_rules.yml
+# Rules for which channel to prefer per state + segment
+# The AI agent uses these as guidelines (not hard rules)
+# ============================================================
+
+channel_preferences:
+
+  NEW_SIGNUP:
+    primary: push
+    secondary: email
+    avoid: in_app
+    reason: "User hasn't engaged with app yet — push gets attention"
+
+  ACTIVATING:
+    primary: in_app
+    secondary: push
+    avoid: null
+    reason: "User is IN the app — meet them where they are"
+
+  ACTIVATED:
+    primary: push
+    secondary: in_app
+    avoid: null
+    reason: "Celebrate the moment — push feels immediate"
+
+  RETAINED:
+    primary: email
+    secondary: in_app
+    avoid: null
+    reason: "Retained users check email — weekly insights work well"
+
+  CHURN_RISK:
+    primary: push
+    secondary: email
+    avoid: in_app
+    reason: "User is NOT in app — must reach them outside it"
+
+  CHURNED:
+    primary: email
+    secondary: null
+    avoid: push
+    reason: "Push permissions likely revoked — email is only option"
+
+  EXPANDING:
+    primary: email
+    secondary: push
+    avoid: null
+    reason: "Upgrade decisions need detail — email allows longer content"
+
+segment_overrides:
+  paid_social:
+    preferred: push
+    reason: "Paid social users respond better to push (shorter attention)"
+  high_intent:
+    preferred: email
+    reason: "High intent users engage deeply with email content"
+  referral:
+    preferred: in_app
+    reason: "Referral users are social — in-app social features work"
