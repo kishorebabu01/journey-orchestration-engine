@@ -1,0 +1,70 @@
+name: Hourly State Machine + AI Agent
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure environment
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_SERVICE_KEY=${{ secrets.SUPABASE_SERVICE_KEY }}" >> .env
+          echo "POSTHOG_API_KEY=${{ secrets.POSTHOG_API_KEY }}" >> .env
+          echo "POSTHOG_PERSONAL_API_KEY=${{ secrets.POSTHOG_PERSONAL_API_KEY }}" >> .env
+          echo "POSTHOG_HOST=${{ secrets.POSTHOG_HOST }}" >> .env
+          echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> .env
+          echo "N8N_WEBHOOK_URL=${{ secrets.N8N_WEBHOOK_URL }}" >> .env
+          echo "BREVO_API_KEY=${{ secrets.BREVO_API_KEY }}" >> .env
+          echo "ONESIGNAL_APP_ID=${{ secrets.ONESIGNAL_APP_ID }}" >> .env
+          echo "ONESIGNAL_REST_API_KEY=${{ secrets.ONESIGNAL_REST_API_KEY }}" >> .env
+
+      - name: Evaluate user journey states
+        run: python -m state_machine.evaluator
+
+      - name: Detect and fire journey triggers
+        run: |
+          python -c "
+          import os, sys
+          sys.path.insert(0, '.')
+          from dotenv import load_dotenv
+          load_dotenv(override=True)
+          from supabase import create_client
+          from state_machine.trigger_detector import detect_triggers_for_user
+          from state_machine.evaluator import analyse_events, get_user_events
+
+          supabase = create_client(os.getenv('SUPABASE_URL'), os.getenv('SUPABASE_SERVICE_KEY'))
+          users = supabase.table('users').select('*').execute().data
+          print(f'Processing {len(users)} users...')
+
+          for user in users:
+              events = get_user_events(user['id'])
+              facts = analyse_events(events, user)
+              detect_triggers_for_user(user, facts)
+          "
+
+      - name: Process triggers with AI agent
+        run: python -m agent.journey_agent

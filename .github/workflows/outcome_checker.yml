@@ -1,0 +1,45 @@
+name: Outcome Checker (48h)
+
+on:
+  schedule:
+  - cron: '0 0 */2 * *' 
+  workflow_dispatch:
+
+jobs:
+  check-outcomes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure environment
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_SERVICE_KEY=${{ secrets.SUPABASE_SERVICE_KEY }}" >> .env
+          echo "POSTHOG_API_KEY=${{ secrets.POSTHOG_API_KEY }}" >> .env
+          echo "POSTHOG_PERSONAL_API_KEY=${{ secrets.POSTHOG_PERSONAL_API_KEY }}" >> .env
+          echo "POSTHOG_HOST=${{ secrets.POSTHOG_HOST }}" >> .env
+          echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> .env
+
+      - name: Check message outcomes
+        run: python -m tracking.outcome_checker
+
+      - name: Log performance metrics
+        run: python -m tracking.performance_logger
