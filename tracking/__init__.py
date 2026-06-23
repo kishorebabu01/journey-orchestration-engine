@@ -1,0 +1,1 @@
+"""Outcome Tracker — monitors message engagement and feeds RAG re-indexer."""

@@ -1,0 +1,1 @@
+"""RAG Pipeline — indexes and retrieves knowledge base documents."""
