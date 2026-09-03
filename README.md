@@ -183,7 +183,7 @@ journey_orchestration_engine/
 
 ## 👨‍💻 Built By
 
-**Kishore Babu** — Growth Marketing + AI Engineering  
+**Kishore Babu** 
 
 ---
 
