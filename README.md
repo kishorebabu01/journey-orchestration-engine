@@ -23,6 +23,8 @@ Built as a portfolio demo using **Focusly** (fictional student productivity app)
 
 ## 🏗️ System Architecture
 
+This flow here shows the complete system. PostHog captures events. The state machine reads those events and classifies users. Triggers fire. The AI agent searches the knowledge base using RAG and calls LLaMA 3.3 70B to write the message. n8n delivers it. Outcomes feed back in. This is a self-improving loop — the system gets smarter every week.
+
 PostHog Events
 ↓
 State Machine (Python)
