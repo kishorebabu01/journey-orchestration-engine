@@ -2,6 +2,7 @@
 
 > **Portfolio Project 5 of 10** 
 
+This system does 7 things automatically — it tracks user behaviour, classifies every user into a lifecycle stage, detects when to send a message, retrieves relevant context from a knowledge base, generates a personalised AI message, delivers it via email or push, and learns from the results every week.
 ---
 
 ## 🎯 What This System Does
