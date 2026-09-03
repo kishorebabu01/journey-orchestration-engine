@@ -161,34 +161,8 @@ journey_orchestration_engine/
 
 ## 🏃 Running Locally
 
-```bash
-# Clone repository
-git clone https://github.com/kishorebabu01/journey-orchestration-engine.git
-cd journey-orchestration-engine
 
-# Create virtual environment
-python -m venv venv
-venv\Scripts\activate  # Windows
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-# Add your API keys to .env
-
-# Run simulated users
-python data/simulate_events.py
-
-# Run state machine
-python -m state_machine.evaluator
-
-# Run AI agent
-python -m agent.journey_agent
-
-# Run delivery layer
-python -m delivery.n8n_webhook
-```
 
 ---
 
