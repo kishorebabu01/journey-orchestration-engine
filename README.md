@@ -1,6 +1,6 @@
 # LLM-Powered Customer Journey Orchestration Engine
 
-> **Portfolio Project 5 of 10** — Built by Kishore Babu as part of AI Growth Marketing portfolio.
+> **Portfolio Project 5 of 10** 
 
 ---
 
